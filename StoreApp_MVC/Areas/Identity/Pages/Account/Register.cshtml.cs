@@ -71,6 +71,11 @@ namespace StoreApp_MVC.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (!await _userRoleManager.RoleExistsAsync(WebConstance.AdminRole))
+            {
+                await _userRoleManager.CreateAsync(new IdentityRole(WebConstance.AdminRole));
+                await _userRoleManager.CreateAsync(new IdentityRole(WebConstance.CustomerRole));
+            }
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -85,6 +90,14 @@ namespace StoreApp_MVC.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    if (User.IsInRole(WebConstance.AdminRole))
+                    {
+                        await _userManager.AddToRoleAsync(user, WebConstance.AdminRole);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, WebConstance.CustomerRole);
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

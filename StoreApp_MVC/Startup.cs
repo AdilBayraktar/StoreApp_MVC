@@ -28,7 +28,7 @@ namespace StoreApp_MVC
         {
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<IdentityUser,IdentityRole>().AddDefaultTokenProviders().AddDefaultUI().AddEntityFrameworkStores<AppDbContext>();
             services.AddHttpContextAccessor();
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(10);

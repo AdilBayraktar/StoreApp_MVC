@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StoreApp_MVC.Data;
 using StoreApp_MVC.Models;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace StoreApp_MVC.Controllers
 {
+    [Authorize(Roles = WebConstance.AdminRole)]
     public class CategoryController : Controller
     {
         private readonly AppDbContext _context;

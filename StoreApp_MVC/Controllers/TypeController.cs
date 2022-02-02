@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StoreApp_MVC.Data;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace StoreApp_MVC.Controllers
 {
+    [Authorize(Roles = WebConstance.AdminRole)]
     public class TypeController : Controller
     {
         private readonly AppDbContext _context;
