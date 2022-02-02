@@ -1,0 +1,53 @@
+﻿@model IEnumerable<StoreApp_MVC.Models.Type>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Type List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <h2 class="text-primary">
+                <a class="btn btn-primary" asp-controller="Type" asp-action="Create">
+                    Create New Type
+                </a>
+            </h2>
+        </div>
+    </div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Type Name
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td width="100%">@item.Name</td>
+                        <td class="w-100 btn-group p-2">
+                            <a class="btn btn-outline-warning mx-2" asp-controller="Type" asp-route-Id="@item.Id" asp-action="Edit">
+                                <i class="fas fa-edit"></i>&nbsp;
+                            </a>
+                            <a class="btn btn-outline-danger mx-2" asp-controller="Type" asp-route-Id="@item.Id" asp-action="Delete">
+                                <i class="fas fa-trash"></i>&nbsp;
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    @if (Model.Count() <= 0)
+    {
+        <p class="text-info">There are No Types</p>
+    }
+</div>
+
